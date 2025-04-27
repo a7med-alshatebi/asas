@@ -2,30 +2,43 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Instagram Gallery - a7med-alshatebi</title>
+    <title>Instagram Feed</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css">
 </head>
-<body class="bg-gray-100">
-    <div class="container mx-auto px-4 py-12">
-        <h1 class="text-4xl font-bold text-center mb-8 text-gray-800">Instagram Feed</h1>
-        
-        <!-- Loading State -->
-        <div id="loading" class="text-center py-8">
-            <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-600 mx-auto"></div>
-        </div>
-
-        <!-- Slider Container (hidden initially) -->
-        <div id="slider" class="swiper-container relative h-96 hidden">
-            <div class="swiper-wrapper"></div>
-            <div class="swiper-button-next"></div>
-            <div class="swiper-button-prev"></div>
-            <div class="swiper-pagination"></div>
-        </div>
+<body class="p-10 bg-gray-100">
+    <div class="swiper-container max-w-4xl mx-auto">
+        <div class="swiper-wrapper" id="instagram-feed"></div>
+        <div class="swiper-pagination"></div>
     </div>
 
     <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
-    <script src="scripts/main.js"></script>
+    <script>
+    // Simple Swiper Config
+    const swiper = new Swiper('.swiper-container', {
+        loop: true,
+        slidesPerView: 'auto',
+        spaceBetween: 20,
+        pagination: { el: '.swiper-pagination' }
+    });
+
+    // Fetch from your domain
+    fetch('https://a7med-alshatebi.tech/instagram')
+        .then(res => res.json())
+        .then(data => {
+            data.data.forEach(post => {
+                const slide = document.createElement('div');
+                slide.className = 'swiper-slide w-64';
+                slide.innerHTML = `
+                    <a href="${post.permalink}" target="_blank">
+                        <img src="${post.media_url}" 
+                             class="w-full h-64 object-cover rounded-lg shadow-lg">
+                    </a>
+                `;
+                document.getElementById('instagram-feed').appendChild(slide);
+            });
+            swiper.update(); // Refresh swiper after adding slides
+        });
+    </script>
 </body>
 </html>
