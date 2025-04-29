@@ -1,3 +1,42 @@
-/home/ahmed/instagram-proxy/.env
+# === Node.js Backend ===
+node_modules/    # NPM dependencies
+.env             # Environment variables
+.env.*           # All environment files (.env.development, .env.test, etc.)
+npm-debug.log*   # NPM debug logs
+.pnpm-debug.log* # PNPM logs
+yarn-debug.log*  # Yarn logs
+yarn-error.log*  # Yarn error logs
+dist/            # Compiled/transpiled code
+build/           # Build output
+.coverage/       # Test coverage reports
 
-/home/ahmed/instagram-proxy/node_modules
+# === Frontend Development ===
+.DS_Store        # macOS folder attributes
+Thumbs.db        # Windows thumbnail cache
+.idea/           # JetBrains IDE files
+.vscode/         # VS Code settings
+*.sublime-*      # Sublime Text files
+
+# === General Development ===
+*.log            # All log files
+*.tmp            # Temporary files
+*.temp           # Temporary files
+.cache/          # Build tool caches
+.tmp/            # Temporary folder
+temp/            # Temporary folder
+debug/           # Debug files
+
+# === Dependency Directories ===
+jspm_packages/   # JSPM packages
+bower_components/ # Bower components
+.pnp             # Yarn PnP files
+
+# === Build Tools ===
+.eslintcache     # ESLint cache
+.parcel-cache/   # Parcel cache
+.next/           # Next.js build
+.out/            # Next.js export
+.netlify         # Netlify folder
+
+# === Serverless ===
+.serverless/     # Serverless Framework
