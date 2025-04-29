@@ -3,124 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ahmed Alshatebi - Instagram Feed</title>
+    <title>Instagram Posts</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css">
-    <style>
-        .instagram-loader {
-            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-        }
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
-    </style>
 </head>
-<body class="bg-gradient-to-br from-gray-900 to-gray-800 min-h-screen">
-    <!-- Header -->
-    <header class="text-center py-12">
-        <h1 class="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500 mb-4">
-            Ahmed Alshatebi's Instagram
-        </h1>
-        <p class="text-gray-300">Latest posts from <a href="https://www.instagram.com/a7med.alshatibi/" 
-           target="_blank" 
-           class="text-blue-400 hover:text-blue-300 transition-colors">@moe99661</a></p>
+<body class="bg-gray-100 text-gray-800">
+    <header class="bg-blue-600 text-white py-4">
+        <h1 class="text-2xl font-bold text-center">Instagram Posts</h1>
     </header>
-
-    <!-- Loading State -->
-    <div id="loading" class="flex justify-center items-center h-96">
-        <div class="instagram-loader w-12 h-12 rounded-full bg-gradient-to-r from-blue-400 to-purple-500"></div>
-    </div>
-
-    <!-- Slider Container -->
-    <div id="slider" class="container mx-auto px-4 pb-16 max-w-6xl hidden">
-        <div class="swiper">
-            <div class="swiper-wrapper"></div>
-            <div class="swiper-button-next text-white/80 hover:text-white"></div>
-            <div class="swiper-button-prev text-white/80 hover:text-white"></div>
-            <div class="swiper-pagination"></div>
+    <main class="container mx-auto p-4">
+        <div id="posts" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            <!-- Posts will be dynamically loaded here -->
         </div>
-    </div>
-
-    <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
-    <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const proxyUrl = 'https://a7med-alshatebi.tech/instagram-proxy';
-        const loading = document.getElementById('loading');
-        const sliderContainer = document.getElementById('slider');
-
-        // Initialize Swiper with basic config
-        const swiper = new Swiper('.swiper', {
-            loop: true,
-            slidesPerView: 1,
-            spaceBetween: 20,
-            navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
-            },
-            pagination: {
-                el: '.swiper-pagination',
-                clickable: true,
-            },
-            breakpoints: {
-                640: { slidesPerView: 2 },
-                1024: { slidesPerView: 3 }
-            }
-        });
-
-        // Fetch Instagram feed
-        fetch(proxyUrl)
-            .then(response => {
-                if (!response.ok) throw new Error('Network error');
-                return response.json();
-            })
-            .then(data => {
-                loading.remove();
-                sliderContainer.classList.remove('hidden');
-                
-                data.data.forEach(post => {
-                    const slide = document.createElement('div');
-                    slide.className = 'swiper-slide group relative overflow-hidden rounded-xl shadow-2xl';
-                    
-                    const mediaContent = post.media_type === 'VIDEO' ?
-                        `<video controls class="w-full h-96 object-cover">
-                            <source src="${post.media_url}" type="video/mp4">
-                        </video>` :
-                        `<img src="${post.media_url}" 
-                              alt="${post.caption || 'Instagram post by moe99661'}"
-                              class="w-full h-96 object-cover">`;
-
-                    slide.innerHTML = `
-                        ${mediaContent}
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent p-6
-                                   flex flex-col justify-end opacity-0 group-hover:opacity-100 transition-opacity">
-                            <p class="text-white text-sm truncate">${post.caption || ''}</p>
-                            <a href="${post.permalink}" 
-                               target="_blank"
-                               class="mt-2 inline-flex items-center text-blue-300 hover:text-blue-200 text-sm">
-                                View on Instagram
-                                <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
-                                </svg>
-                            </a>
-                        </div>
-                    `;
-
-                    swiper.appendSlide(slide);
-                });
-
-                swiper.update();
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                loading.innerHTML = `
-                    <div class="text-center text-red-300">
-                        <p class="text-lg">Failed to load Instagram feed</p>
-                        <p class="text-sm mt-2">Please try again later</p>
-                    </div>
-                `;
-            });
-    });
-    </script>
+    </main>
+    <footer class="bg-gray-800 text-white py-4 text-center">
+        <p>&copy; 2025 A7med Alshatebi</p>
+    </footer>
+    <script src="script.js"></script>
 </body>
 </html>
