@@ -5,7 +5,7 @@ const fetchInstagramPosts = async () => {
         const backendUrl = 'https://a7med-alshatebi.tech/instagram';
 
         // Make a GET request to the backend
-        const response = await fetch(backendUrl);
+        const response = await fetch(https://a7med-alshatebi.tech);
 
         // Check if the response is successful
         if (!response.ok) {
